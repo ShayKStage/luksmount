@@ -5,7 +5,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Utilities for LUKS encrypted drives/DM-Crypt"
 readme = "README.md"
-repository = "https://github.com/ShayKStage/luxutil.git"
+repository = "https://github.com/ShayKStage/luxutil"
 authors = [
     "Shay Eclipse Kirkegaard Stage <shaykstage.crates.d8azq@passmail.net>",
 ]
