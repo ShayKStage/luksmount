@@ -7,7 +7,7 @@ fn main() {
     let cli = cli::Cli::parse();
     dbg!(cli.clone());
 
-    let device_mapper = "luksmount-".to_string() + cli.mnt.replace("/", "__").as_str();
+    let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
     dbg!(device_mapper.clone());
 
     match Command::new("cryptsetup")
