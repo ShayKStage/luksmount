@@ -1,5 +1,4 @@
 use clap::Parser;
-use std::process::Command;
 
 mod cli;
 
@@ -10,50 +9,28 @@ fn main() {
     let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
     dbg!(device_mapper.clone());
 
-    match Command::new("umount").arg(cli.mnt.clone()).status() {
-        Ok(status) => {
-            if !status.success() {
-                eprintln!("Failed to unmount {}", cli.mnt);
-                std::process::exit(status.code().unwrap_or(-1))
-            }
-        }
-        Err(error) => {
-            eprintln!("Command \"umount\" failed with error: {}", error);
-            std::process::exit(-1)
-        }
-    }
+    luxutil::run_command(
+        "umount",
+        [cli.mnt.clone()],
+        format!("Failed to unmount {}", cli.mnt).as_str(),
+        luxutil::QuitOn::Error,
+    );
 
-    match Command::new("cryptsetup")
-        .arg("close")
-        .arg(device_mapper.clone())
-        .status()
-    {
-        Ok(status) => {
-            if !status.success() {
-                eprintln!("Failed to close encrypted mapper volume {}", device_mapper);
-                std::process::exit(status.code().unwrap_or(-1))
-            }
-        }
-        Err(error) => {
-            eprintln!("Command \"cryptsetup\" failed with error: {}", error);
-            std::process::exit(-1)
-        }
-    }
+    luxutil::run_command(
+        "cryptsetup",
+        ["close", device_mapper.as_str()],
+        format!("Failed to close encrypted mapper volume {}", device_mapper).as_str(),
+        luxutil::QuitOn::Error,
+    );
 
     if !cli.rmdir {
         std::process::exit(0)
     }
 
-    match Command::new("rm").arg("-d").arg(cli.mnt.clone()).status() {
-        Ok(status) => {
-            if !status.success() {
-                eprintln!("Failed to remove {}", cli.mnt);
-                std::process::exit(status.code().unwrap_or(-1))
-            }
-        }
-        Err(error) => {
-            eprintln!("Command \"rm\" failed with error: {}", error);
-            std::process::exit(-1)
-        }
-    }
+    luxutil::run_command(
+        "rm",
+        ["-d", cli.mnt.as_str()],
+        format!("Failed to remove {}", cli.mnt).as_str(),
+        luxutil::QuitOn::Error,
+    );
 }
