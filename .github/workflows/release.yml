@@ -17,6 +17,7 @@ jobs:
       run: cargo test --verbose
   build:
     runs-on: ubuntu-latest
+    needs: test
     steps:
     - uses: actions/checkout@v3
     - name: Build
@@ -29,6 +30,7 @@ jobs:
         path: release.tar.gz
   release:
     runs-on: ubuntu-latest
+    needs: build
     permissions:
       contents: write
     steps:
