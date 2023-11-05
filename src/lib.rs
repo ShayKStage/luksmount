@@ -10,7 +10,7 @@ where
     let mut retval = 0;
 
     for argument in arguments {
-        command.arg(argument.as_ref());
+        command.arg(argument);
     }
 
     match command.status() {

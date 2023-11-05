@@ -1,6 +1,6 @@
 use clap::Parser;
 
-#[derive(Parser, Debug, Clone)]
+#[derive(Parser)]
 #[command(author, version, about = "Mount a LUKS encrypted filesystem", long_about = None)]
 pub(crate) struct Cli {
     /// The block device to mount (eg. /dev/sdb1)

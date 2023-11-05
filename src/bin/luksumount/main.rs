@@ -4,21 +4,19 @@ mod cli;
 
 fn main() {
     let cli = cli::Cli::parse();
-    dbg!(cli.clone());
 
     let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
-    dbg!(device_mapper.clone());
 
     luxutil::run_command(
         "umount",
-        [cli.mnt.clone()],
+        [&cli.mnt],
         format!("Failed to unmount {}", cli.mnt).as_str(),
         luxutil::QuitOn::Error,
     );
 
     luxutil::run_command(
         "cryptsetup",
-        ["close", device_mapper.as_str()],
+        ["close", &device_mapper],
         format!("Failed to close encrypted mapper volume {}", device_mapper).as_str(),
         luxutil::QuitOn::Error,
     );
@@ -29,7 +27,7 @@ fn main() {
 
     luxutil::run_command(
         "rm",
-        ["-d", cli.mnt.as_str()],
+        ["-d", &cli.mnt],
         format!("Failed to remove {}", cli.mnt).as_str(),
         luxutil::QuitOn::Error,
     );

@@ -1,6 +1,6 @@
 use clap::Parser;
 
-#[derive(Parser, Debug, Clone)]
+#[derive(Parser)]
 #[command(author, version, about = "Unmount a LUKS encrypted filesystem", long_about = None)]
 pub(crate) struct Cli {
     /// The mount directory (eg. /mnt)

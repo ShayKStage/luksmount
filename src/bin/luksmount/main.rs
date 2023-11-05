@@ -4,29 +4,22 @@ mod cli;
 
 fn main() {
     let cli = cli::Cli::parse();
-    dbg!(cli.clone());
 
     let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
-    dbg!(device_mapper.clone());
 
     luxutil::run_command(
         "cryptsetup",
-        ["open", cli.dev.as_str(), device_mapper.as_str()],
+        ["open", &cli.dev, &device_mapper],
         format!("Failed to open encrypted volume {}", cli.dev).as_str(),
         luxutil::QuitOn::Error,
     );
 
     let device_mapper = format!("/dev/mapper/{}", device_mapper);
 
-    let mut mount_args = vec![
-        "-t",
-        cli.fstype.as_str(),
-        device_mapper.as_str(),
-        cli.mnt.as_str(),
-    ];
+    let mut mount_args = vec!["-t", &cli.fstype, &device_mapper, &cli.mnt];
 
     if cli.mkdir {
-        mount_args.append(&mut vec!["--mkdir"]);
+        mount_args.push("--mkdir");
     }
 
     luxutil::run_command(
