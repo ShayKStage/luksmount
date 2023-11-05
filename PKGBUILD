@@ -1,7 +1,7 @@
 # Maintainer: Shay K. Stage <ShayKStage@protonmail.com>
 pkgname=luxutil
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Utilities for LUKS encrypted drives/DM-Crypt'
 arch=(x86_64)
 url='https://github.com/ShayKStage/luxutil'
@@ -16,23 +16,30 @@ sha256sums=('SKIP')
 
 prepare() {
     cd $pkgname-$pkgver
+    export RUSTUP_TOOLCHAIN=stable
     cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
     cd $pkgname-$pkgver
-    cargo build --bins --release --frozen
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    cargo build --frozen --bins --release --all-features
 }
 
 check() {
     cd $pkgname-$pkgver
-    cargo test --frozen
+    export RUSTUP_TOOLCHAIN=stable
+    cargo test --frozen --all-features
 }
 
 package() {
     cd $pkgname-$pkgver
-    install -Dm 755 "target/release/luksmount" -t "$pkgdir/usr/bin"
-    install -Dm 755 "target/release/luksumount" -t "$pkgdir/usr/bin"
+    find target/release \
+        -maxdepth 1 \
+        -executable \
+        -type f \
+        -exec install -Dm0755 -t "$pkgdir/usr/bin/" {} +
     install -Dm 644 "LICENSE-APACHE" -t "$pkgdir/usr/share/licenses/$pkgname"
     install -Dm 644 "LICENSE-MIT" -t "$pkgdir/usr/share/licenses/$pkgname"
     install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
