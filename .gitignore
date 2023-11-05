@@ -12,3 +12,11 @@ target/
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+
+# PKGBUILD
+luxutil-*-build.log
+luxutil-*-check.log
+luxutil-*-package.log
+luxutil-*-prepare.log
+luxutil-*.pkg.tar.zst
+luxutil-*.tar.gz
