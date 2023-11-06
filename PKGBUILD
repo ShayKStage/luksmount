@@ -1,6 +1,6 @@
 # Maintainer: Shay K. Stage <ShayKStage@protonmail.com>
 pkgname=luksmount
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='Utilities for LUKS encrypted drives/DM-Crypt'
 arch=(x86_64)

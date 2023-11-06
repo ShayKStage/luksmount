@@ -1,6 +1,6 @@
 [package]
 name = "luksmount"
-version = "1.0.3"
+version = "1.0.4"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Utilities for LUKS encrypted drives/DM-Crypt"
