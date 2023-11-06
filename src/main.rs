@@ -7,11 +7,11 @@ fn main() {
 
     let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
 
-    luxutil::run_command(
+    luksmount::run_command(
         "cryptsetup",
         ["open", &cli.dev, &device_mapper],
         format!("Failed to open encrypted volume {}", cli.dev).as_str(),
-        luxutil::QuitOn::Error,
+        luksmount::QuitOn::Error,
     );
 
     let device_mapper = format!("/dev/mapper/{}", device_mapper);
@@ -22,7 +22,7 @@ fn main() {
         mount_args.push("--mkdir");
     }
 
-    luxutil::run_command(
+    luksmount::run_command(
         "mount",
         mount_args,
         format!(
@@ -30,6 +30,6 @@ fn main() {
             cli.dev, cli.mnt, device_mapper
         )
         .as_str(),
-        luxutil::QuitOn::Error,
+        luksmount::QuitOn::Error,
     );
 }

@@ -1,11 +1,11 @@
 [package]
-name = "luxutil"
+name = "luksmount"
 version = "1.0.2"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Utilities for LUKS encrypted drives/DM-Crypt"
 readme = "README.md"
-repository = "https://github.com/ShayKStage/luxutil"
+repository = "https://github.com/ShayKStage/luksmount"
 authors = [
     "Shay Eclipse Kirkegaard Stage <shaykstage.crates.d8azq@passmail.net>",
 ]

@@ -14,9 +14,9 @@ target/
 *.pdb
 
 # PKGBUILD
-luxutil-*-build.log
-luxutil-*-check.log
-luxutil-*-package.log
-luxutil-*-prepare.log
-luxutil-*.pkg.tar.zst
-luxutil-*.tar.gz
+luksmount-*-build.log
+luksmount-*-check.log
+luksmount-*-package.log
+luksmount-*-prepare.log
+luksmount-*.pkg.tar.zst
+luksmount-*.tar.gz
