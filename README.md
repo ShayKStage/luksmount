@@ -1,2 +1,3 @@
 # luksmount
-Utilities for LUKS encrypted drives/DM-Crypt
+
+Utility to mount/unmount LUKS encrypted drives
