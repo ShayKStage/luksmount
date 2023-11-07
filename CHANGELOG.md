@@ -1,3 +1,3 @@
 # Changelog
 
-Update Cargo.lock
+- Fix description in Cargo.toml and README.md
