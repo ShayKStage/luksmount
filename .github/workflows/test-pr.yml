@@ -13,6 +13,14 @@ env:
   CARGO_TERM_COLORS: always
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run cargo check
+        run: cargo check --all-targets
+      - name: Run clippy lints
+        run: cargo clippy --all-targets
   test:
     runs-on: ubuntu-latest
     steps:
