@@ -9,6 +9,8 @@ repository = "https://github.com/ShayKStage/luksmount"
 authors = [
     "Shay Eclipse Kirkegaard Stage <shaykstage.crates.d8azq@passmail.net>",
 ]
+keywords = ["LUKS", "encryption", "encrypted", "filesystems"]
+categories = ["command-line-utilities", "filesystem"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

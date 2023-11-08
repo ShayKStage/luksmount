@@ -1,3 +1,5 @@
+#![deny(clippy::pedantic)]
+
 use clap::Parser;
 
 mod cli;
@@ -5,7 +7,7 @@ mod cli;
 fn main() {
     let cli = cli::Cli::parse();
 
-    let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
+    let device_mapper = format!("luksmount-{}", cli.mnt.replace('/', "__"));
 
     luksmount::run_command(
         "cryptsetup",
@@ -14,7 +16,7 @@ fn main() {
         luksmount::QuitOn::Error,
     );
 
-    let device_mapper = format!("/dev/mapper/{}", device_mapper);
+    let device_mapper = format!("/dev/mapper/{device_mapper}");
 
     let mut mount_args = vec!["-t", &cli.fstype, &device_mapper, &cli.mnt];
 

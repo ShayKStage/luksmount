@@ -1,3 +1,5 @@
+#![deny(clippy::pedantic)]
+
 use clap::Parser;
 
 mod cli;
@@ -5,7 +7,7 @@ mod cli;
 fn main() {
     let cli = cli::Cli::parse();
 
-    let device_mapper = format!("luksmount-{}", cli.mnt.replace("/", "__"));
+    let device_mapper = format!("luksmount-{}", cli.mnt.replace('/', "__"));
 
     luksmount::run_command(
         "umount",
@@ -17,7 +19,7 @@ fn main() {
     luksmount::run_command(
         "cryptsetup",
         ["close", &device_mapper],
-        format!("Failed to close encrypted mapper volume {}", device_mapper).as_str(),
+        format!("Failed to close encrypted mapper volume {device_mapper}").as_str(),
         luksmount::QuitOn::Error,
     );
 

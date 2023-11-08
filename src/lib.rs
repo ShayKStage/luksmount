@@ -1,3 +1,7 @@
+#![deny(clippy::pedantic)]
+#![warn(clippy::nursery)]
+#![warn(clippy::cargo)]
+
 use std::{ffi::OsStr, process::Command};
 
 pub fn run_command<I, S>(program: &str, arguments: I, error: &str, quit_on: QuitOn) -> (bool, i32)
@@ -25,7 +29,7 @@ where
             }
         }
         Err(error) => {
-            eprintln!("Command \"{}\" failed with error: {}", program, error);
+            eprintln!("Command \"{program}\" failed with error: {error}");
             retval = -1;
             success = false;
             if quit_on == QuitOn::Error || quit_on == QuitOn::Fail {
@@ -33,10 +37,10 @@ where
             }
         }
     }
-    return (success, retval);
+    (success, retval)
 }
 
-#[derive(PartialEq, Eq, PartialOrd, Ord)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
 pub enum QuitOn {
     Fail,
     Error,
