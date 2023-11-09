@@ -23,7 +23,7 @@ fn main() {
     if cli.mkdir {
         'mkdir: loop {
             match fs::create_dir_all(&cli.mnt) {
-                Ok(_) => break 'mkdir,
+                Ok(()) => break 'mkdir,
                 Err(error) => {
                     eprintln!(
                         "Failed to create mount directory {} with error: {error}",

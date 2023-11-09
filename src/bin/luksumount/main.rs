@@ -33,7 +33,7 @@ fn main() {
 
     'rmdir: loop {
         match fs::remove_dir(&cli.mnt) {
-            Ok(_) => break 'rmdir,
+            Ok(()) => break 'rmdir,
             Err(error) => {
                 eprintln!(
                     "Failed to remove mount directory {} with error: {error}",

@@ -2,7 +2,7 @@ use clap::Parser;
 
 #[derive(Parser)]
 #[command(author, version, about = "Mount a LUKS encrypted filesystem", long_about = None)]
-pub(crate) struct Cli {
+pub struct Cli {
     /// The block device to mount (eg. /dev/sdb1)
     pub(crate) dev: String,
     /// The directory to use as the mountpoint (eg. /mnt)
