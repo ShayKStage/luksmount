@@ -11,13 +11,13 @@ mod cli;
 fn main() {
     let cli = cli::Cli::parse();
 
-    let device_mapper = format!("luksmount-{}", cli.mnt.replace('/', "__"));
+    let device_mapper = format!("luksmount_internal-{}", cli.mnt.replace('/', "__"));
 
-    luksmount::run_command(
+    luksmount_internal::run_command(
         "cryptsetup",
         ["open", &cli.dev, &device_mapper],
         format!("Failed to open encrypted volume {}", cli.dev).as_str(),
-        luksmount::QuitOn::Error,
+        luksmount_internal::QuitOn::Error,
     );
 
     if cli.mkdir {
@@ -49,7 +49,7 @@ fn main() {
 
     let device_mapper = format!("/dev/mapper/{device_mapper}");
 
-    luksmount::run_command(
+    luksmount_internal::run_command(
         "mount",
         ["-t", &cli.fstype, &device_mapper, &cli.mnt],
         format!(
@@ -57,6 +57,6 @@ fn main() {
             cli.dev, cli.mnt, device_mapper
         )
         .as_str(),
-        luksmount::QuitOn::Error,
+        luksmount_internal::QuitOn::Error,
     );
 }

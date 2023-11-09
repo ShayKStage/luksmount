@@ -11,20 +11,20 @@ mod cli;
 fn main() {
     let cli = cli::Cli::parse();
 
-    let device_mapper = format!("luksmount-{}", cli.mnt.replace('/', "__"));
+    let device_mapper = format!("luksmount_internal-{}", cli.mnt.replace('/', "__"));
 
-    luksmount::run_command(
+    luksmount_internal::run_command(
         "umount",
         [&cli.mnt],
         format!("Failed to unmount {}", cli.mnt).as_str(),
-        luksmount::QuitOn::Error,
+        luksmount_internal::QuitOn::Error,
     );
 
-    luksmount::run_command(
+    luksmount_internal::run_command(
         "cryptsetup",
         ["close", &device_mapper],
         format!("Failed to close encrypted mapper volume {device_mapper}").as_str(),
-        luksmount::QuitOn::Error,
+        luksmount_internal::QuitOn::Error,
     );
 
     if !cli.rmdir {
