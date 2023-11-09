@@ -1,6 +1,10 @@
 #![deny(clippy::pedantic)]
+#![warn(clippy::nursery)]
+
+use std::fs;
 
 use clap::Parser;
+use inquire::Confirm;
 
 mod cli;
 
@@ -27,10 +31,28 @@ fn main() {
         std::process::exit(0)
     }
 
-    luksmount::run_command(
-        "rm",
-        ["-d", &cli.mnt],
-        format!("Failed to remove {}", cli.mnt).as_str(),
-        luksmount::QuitOn::Error,
-    );
+    'rmdir: loop {
+        match fs::remove_dir(&cli.mnt) {
+            Ok(_) => break 'rmdir,
+            Err(error) => {
+                eprintln!(
+                    "Failed to remove mount directory {} with error: {error}",
+                    cli.mnt
+                );
+
+                let retry = Confirm::new("Retry?").with_default(false).prompt();
+                match retry {
+                    Ok(true) => continue 'rmdir,
+                    Ok(false) => break 'rmdir,
+                    Err(error) => {
+                        eprintln!(
+                            "Failed to get info from user with error: {error}, not retrying."
+                        );
+                        println!("To remove the mount directory manually run \"rm -d {}\" (without the quotes)", cli.mnt);
+                        break 'rmdir;
+                    }
+                }
+            }
+        }
+    }
 }

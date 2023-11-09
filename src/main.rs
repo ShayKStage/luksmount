@@ -1,6 +1,10 @@
 #![deny(clippy::pedantic)]
+#![warn(clippy::nursery)]
+
+use std::fs;
 
 use clap::Parser;
+use inquire::Confirm;
 
 mod cli;
 
@@ -16,17 +20,38 @@ fn main() {
         luksmount::QuitOn::Error,
     );
 
-    let device_mapper = format!("/dev/mapper/{device_mapper}");
-
-    let mut mount_args = vec!["-t", &cli.fstype, &device_mapper, &cli.mnt];
-
     if cli.mkdir {
-        mount_args.push("--mkdir");
+        'mkdir: loop {
+            match fs::create_dir_all(&cli.mnt) {
+                Ok(_) => break 'mkdir,
+                Err(error) => {
+                    eprintln!(
+                        "Failed to create mount directory {} with error: {error}",
+                        cli.mnt
+                    );
+
+                    let retry = Confirm::new("Retry?").with_default(false).prompt();
+                    match retry {
+                        Ok(true) => continue 'mkdir,
+                        Ok(false) => std::process::exit(-1),
+                        Err(error) => {
+                            eprintln!(
+                                "Failed to get info from user with error: {error}, not retrying."
+                            );
+                            println!("To create the mount directory manually run \"mkdir {}\" (without the quotes)", cli.mnt);
+                            std::process::exit(-1)
+                        }
+                    }
+                }
+            }
+        }
     }
+
+    let device_mapper = format!("/dev/mapper/{device_mapper}");
 
     luksmount::run_command(
         "mount",
-        mount_args,
+        ["-t", &cli.fstype, &device_mapper, &cli.mnt],
         format!(
             "Failed to mount volume {} at {} via mapper volume {}",
             cli.dev, cli.mnt, device_mapper
