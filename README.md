@@ -13,6 +13,9 @@ Utility to mount/unmount LUKS encrypted drives
       - [Using prebuilt binaries](#using-prebuilt-binaries)
       - [Using `cargo build`](#using-cargo-build)
       - [Using `cargo install`](#using-cargo-install)
+  - [Usage](#usage)
+  - [Changelog](#changlog)
+  - [License](#license)
 
 ## Installation
 
@@ -74,3 +77,46 @@ cargo install --git https://github.com/ShayKStage/luksmount.git --bins
 
 You can add `--tag <TAG>` to install a specific release
 
+## Usage
+
+1. `luksmount`
+
+```
+Mount a LUKS encrypted filesystem
+
+Usage: luksmount [OPTIONS] <DEV> <MNT> [FSTYPE]
+
+Arguments:
+  <DEV>     The block device to mount (eg. /dev/sdb1)
+  <MNT>     The directory to use as the mountpoint (eg. /mnt)
+  [FSTYPE]  The filesystem to mount it as (eg. ext4, btrfs, ntfs) [default: ext4]
+
+Options:
+  -m, --mkdir    Try to create the mount directory
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
+2. `luksumount`
+
+```
+Unmount a LUKS encrypted filesystem
+
+Usage: luksumount [OPTIONS] <MNT>
+
+Arguments:
+  <MNT>  The mount directory (eg. /mnt)
+
+Options:
+  -r, --rmdir    Try to remove the mount directory
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
+## Changelog
+
+[CHANGELOG.md](CHANGELOG.md)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/) [OR](https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/#d42-disjunctive-or-operator) [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
