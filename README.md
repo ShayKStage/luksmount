@@ -30,12 +30,13 @@ Utility to mount/unmount LUKS encrypted drives
 1. Add my arch repo using the following lines (Don't do this if you don't know what it does):
 
 ```conf
-[sks-arch-repo]
+[shayks]
 SigLevel = Optional DatabaseOptional
-Server = https://raw.githubusercontent.com/ShayKStage/$repo/main/$arch
+Server = https://repo.shaykstage.dev/arch/$repo/$arch
 ```
 
-2. Run `pacman -S luksmount`
+2. Run `pacman -Syyu`
+3. Run `pacman -S luksmount`
 
 ### On Other Distros
 
