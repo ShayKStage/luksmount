@@ -1,0 +1,16 @@
+[book]
+authors = ["Shay K. Stage"]
+language = "en"
+multilingual = false
+src = "src"
+title = "LUKSmount Documentation"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/ShayKStage/luksmount"
+git-repository-icon = "fa-github"
+site-url = "/luksmount/"
+cname = "myproject.rs"
+input-404 = "not-found.md"
+

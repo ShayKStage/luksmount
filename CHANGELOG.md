@@ -1,10 +1,4 @@
 # Changelog
 
-- Fix description in Cargo.toml and README.md
-- Set clippy lints to:
+Update [README.md](README.md) to include info about the project, a installation guide and a small usage section.
 
-```rust
-#![deny(clippy::pedantic)]
-#![warn(clippy::nursery)]
-#![warn(clippy::cargo)]
-```
