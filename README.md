@@ -27,7 +27,7 @@ Utility to mount/unmount LUKS encrypted drives
 
 ### On Arch Linux
 
-1. If you don't already have my arch repo in your pacman.conf, add it using the following lines:
+1. Add my arch repo using the following lines (Don't do this if you don't know what it does):
 
 ```conf
 [sks-arch-repo]
