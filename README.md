@@ -32,7 +32,7 @@ Utility to mount/unmount LUKS encrypted drives
 ```conf
 [shayks]
 SigLevel = Optional DatabaseOptional
-Server = https://repo.shaykstage.dev/arch/$repo/$arch
+Server = https://raw.githubusercontent.com/ShayKStage/repo/main/arch/$repo/$arch
 ```
 
 2. Run `pacman -Syyu`
